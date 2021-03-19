@@ -1,2 +1,2 @@
 language="python3"
-run="python basic/hello.py"
+run="python Lesson-1/fibonacci1.py"
