@@ -1,7 +1,7 @@
 # Generating the Fibonacci sequence up to 100 (in a column)
 
-print("The Fibonacci sequence up to 100: \n")
-limit = 89
+print("A list of the fibonacci sequence up to 100: \n")
+limit = 88
 Var2 = 1
 counter = Var1 = Var3 = 0
 while Var3 < limit:

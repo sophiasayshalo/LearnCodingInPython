@@ -1,2 +1,2 @@
 language="python3"
-run="python Lesson-1/fibonacci1.py"
+run="python snakegame/snakegame.py"
