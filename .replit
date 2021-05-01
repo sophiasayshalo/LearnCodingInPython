@@ -1,2 +1,2 @@
 language="python3"
-run="python snakegame/snakegame.py"
+run="python snakegame/func_trial1.py"

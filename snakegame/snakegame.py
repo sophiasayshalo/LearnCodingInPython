@@ -6,9 +6,9 @@ def paint_score(stdscr, score):
 
     sh, sw = stdscr.getmaxyx()
     # paint score:
-    stdscr.addstr(3, sw // 4, 'SCORE: ')
+    stdscr.addstr(3, sw // 25, 'SCORE: ')
     stdscr.addstr(str(score))
-    
+        
 
 def board(stdscr):
 
@@ -18,6 +18,9 @@ def board(stdscr):
     stdscr.nodelay(1)
     # timeout in million second
     stdscr.timeout(170)
+
+    interval = 300
+    stdscr.timeout(interval)
 
     # screen size
     sh, sw = stdscr.getmaxyx()
@@ -49,7 +52,7 @@ def board(stdscr):
         # tail
         [center[0], center[1] - 1]
     ]
-    
+        
     # █ 9608
     snake_ch = chr(9608)
 
@@ -111,7 +114,9 @@ def board(stdscr):
             score += score_step
             paint_score(stdscr, score)
 
-        
+            interval = interval - 10
+            stdscr.timeout(interval) 
+            
             # generate new food (x axis, y axis)
             food = [
                 # x axis
@@ -127,15 +132,18 @@ def board(stdscr):
             # remove the tail
             snake.pop()
 
+
         if (snake[0][0] in [box[0][0], box[1][0]] or
             snake[0][1] in [box[0][1], box[1][1]]):
 
             msg = "GAME OVER."
-            stdscr.addstr(center[0], center[1] - len(msg)//2, msg)
+            stdscr.addstr(center[0], center[1] - len(msg) // 2, msg)
             # turn off nodelay mode
             stdscr.nodelay(0)
             stdscr.getch()
             break
-   
+
+# add restart game function
 
 curses.wrapper(board)
+
