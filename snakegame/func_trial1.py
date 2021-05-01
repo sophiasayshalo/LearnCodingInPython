@@ -5,6 +5,8 @@ import random
 # snake food restart
 def restart_game(stdscr, box):
 
+    sh, sw = stdscr.getmaxyx()
+
     food_ch = "*"
     food = [
         random.randint(box[0][0] + 1, box[1][0] - 1),
@@ -56,6 +58,8 @@ def paint_score(stdscr, score):
     stdscr.addstr(3, sw // 25, 'SCORE: ')
     stdscr.addstr(str(score))    
 
+    score = 0
+
 
 def board(stdscr):
 
@@ -69,8 +73,9 @@ def board(stdscr):
     interval = 300
     stdscr.timeout(interval)
 
-    # screen size
+    # game message
     game_instr(stdscr)
+
     sh, sw = stdscr.getmaxyx()
     #set x, y to center of screen
     center = [sh // 2, sw // 2]
@@ -188,32 +193,32 @@ def board(stdscr):
         
         # restart game function input
         if rkey == ord('r'):
+
+            stdscr.clear()
             # restart snake food
-            restart_game(stdscr, box)
-            # restart snake body
+            food = restart_game(stdscr, box)
+            #restart_game(stdscr, box)
             snake = body_restart(stdscr, center, snake_ch)
             # restart game instr
             game_instr(stdscr)
             # restart score
             paint_score(stdscr, score)
+            # paint food
+            stdscr.addstr(food[0], food[1], food_ch)
+
+            #set score to zero
+            score = 0
+            paint_score(stdscr, score)
+            score_step = 5
 
             # reset snake to the center of the screen
             # restart game
             stdscr.nodelay(True)
-            stdscr.timeout(100)
+            stdscr.timeout(interval)
 
-            stdscr.clear()
+            
             stdscr.addstr( center[0], center[1] - 10, ' ' * 15)
             stdscr.addstr( center[0] + 1, center[1], ' ' * 40)
-
-            # reset the snake to center of the screen
-            #snake = [
-                #[center[0], center[1] + 1],
-                #[center[0], center[1]],
-                #[center[0], center[1] - 1],
-            #]
-            #snake_ch = chr(9608) 
-            #stdscr.addstr(point[0], point[1], snake_ch) 
 
             box = [
                 [4, 3],
